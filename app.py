@@ -3,50 +3,28 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-# Set configuration as the absolute first command
+# 1. Set Page configuration as the absolute first command
 st.set_page_config(page_title="Perfume AI Analyzer", page_icon="⚗️", layout="wide")
 
-# 1. ADVANCED JAVASCRIPT IFRAME BREAKOUT & PWA METRICS INJECTION
-st.components.v1.html("""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Perfume AI</title>
-        <meta name="apple-mobile-web-app-title" content="Perfume AI">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        
-        <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/3T4PZ9X/perfume-gold.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/3T4PZ9X/perfume-gold.png">
-        
-        <script>
-            // JavaScript Iframe Breakout Core
-            if (window.top !== window.self) {
-                try {
-                    // Force the parent window to escape the Streamlit Cloud iframe structure
-                    window.top.location.replace(window.self.location.href);
-                } catch (e) {
-                    console.log("Iframe breakout bypass active");
-                }
-            }
-        </script>
-    </head>
-    <body></body>
-    </html>
-""", height=0)
+# 2. Native System Brand Icon Core Injection (Bypasses about:srcdoc crash)
+st.logo(
+    image="https://i.ibb.co/3T4PZ9X/perfume-gold.png",
+    link="https://perfume-ai-analyzer.streamlit.app/",
+    icon_image="https://i.ibb.co/3T4PZ9X/perfume-gold.png"
+)
 
-# 2. INJECT STYLE OVERRIDES TO NATIVE THEME
+# 3. Native Safe CSS Theme Override
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
     
+    /* Strict global layout overrides */
     .stApp, html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stSidebar"] {
         font-family: 'Inter', sans-serif !important;
         background-color: #0b0c10 !important;
         color: #e6edf3 !important;
     }
+    
     .main-title {
         font-size: 2.2em;
         font-weight: 600;
@@ -82,6 +60,7 @@ st.markdown("""
         color: #f39c12;
         font-weight: 600;
         margin-bottom: 4px;
+        letter-spacing: 0.5px;
     }
     .pyramid-content {
         color: #f0f6fc;
@@ -106,7 +85,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. Official 200 Verified Real-World Perfume Database with Pyramid Architecture
+# 4. Official 200 Verified Real-World Perfume Database with Pyramid Architecture
 def load_verified_perfumes():
     data = [
         # --- VERSACE ---
@@ -282,13 +261,14 @@ def main():
         formatted_options_map = {note: note.replace("_", " ").title() for note in ALL_UNIQUE_NOTES}
         reverse_map = {v: k for k, v in formatted_options_map.items()}
         
+        # FIXED MULTI-COLUMN NATIVE STREAMLIT GRID
         col_top, col_mid, col_base = st.columns(3)
         with col_top:
-            top_sel = st.multiselect("🟢 Top Notes:", options=list(formatted_options_map.values()), key="final_top_layer")
+            top_sel = st.multiselect("🟢 Top Notes:", options=list(formatted_options_map.values()), key="final_pwa_top")
         with col_mid:
-            mid_sel = st.multiselect("🟡 Heart Notes:", options=list(formatted_options_map.values()), key="final_mid_layer")
+            mid_sel = st.multiselect("🟡 Heart Notes:", options=list(formatted_options_map.values()), key="final_pwa_mid")
         with col_base:
-            base_sel = st.multiselect("🔴 Base Notes:", options=list(formatted_options_map.values()), key="final_base_layer")
+            base_sel = st.multiselect("🔴 Base Notes:", options=list(formatted_options_map.values()), key="final_pwa_base")
             
         if top_sel or mid_sel or base_sel:
             custom_pyramid_str = f"{' '.join([reverse_map[n] for n in top_sel])} | {' '.join([reverse_map[n] for n in mid_sel])} | {' '.join([reverse_map[n] for n in base_sel])}"
@@ -305,7 +285,7 @@ def main():
                 
                 best_match, match_score = find_closest_perfume_match(custom_profile, df)
                 if best_match:
-                    st.markdown(f"<div class='match-card'><div style='color:#f39c12; font-weight:600;'>🏆 AI DATABASE CLONE MATCH</div><div style='font-size:1.8em; color:white; font-weight:600;'>{best_match}</div><div style='color:#a3e635;'>🎯 Similarity Index: {match_score}%</div></div>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='match-card'><div style='color:#f39c12; font-weight:600;'>🏆 AI DATABASE CLONE MATCH</div><div style='font-size:1.8em; color:white;'>{best_match}</div><div style='color:#a3e635;'>🎯 Similarity Index: {match_score}%</div></div>", unsafe_allow_html=True)
         else:
             st.info("💡 Select notes in the layers above to start the simulation.")
 
