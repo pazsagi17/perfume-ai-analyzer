@@ -3,8 +3,13 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-# 1. PREMIUM NATIVE PWA SCREEN INJECTION (FORCES FULLSCREEN BYPASS)
-st.markdown("""
+# Set configuration as the absolute first command
+st.set_page_config(page_title="Perfume AI Analyzer", page_icon="⚗️", layout="wide")
+
+# 1. THE RIGHT WAY TO INJECT HEAD & PWA BYPASS METRICS (USING OFFICIAL INJECTOR)
+st.components.v1.html("""
+    <!DOCTYPE html>
+    <html>
     <head>
         <title>Perfume AI</title>
         <meta name="apple-mobile-web-app-title" content="Perfume AI">
@@ -16,56 +21,61 @@ st.markdown("""
         <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/3T4PZ9X/perfume-gold.png">
         <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/3T4PZ9X/perfume-gold.png">
     </head>
+    <body></body>
+    </html>
+""", height=0)
+
+# 2. INJECT STYLE OVERRIDES TO NATIVE THEME WITHOUT PRINTING PLAIN TEXT
+st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
     
-    .stApp, html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stSidebar"] {
+    .stApp, html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stSidebar"] {{
         font-family: 'Inter', sans-serif !important;
         background-color: #0b0c10 !important;
         color: #e6edf3 !important;
-    }
-    
-    .main-title {
+    }}
+    .main-title {{
         font-size: 2.2em;
         font-weight: 600;
         color: #f39c12;
         text-align: center;
         margin-top: 5px;
         letter-spacing: -0.5px;
-    }
-    .sub-title {
+    }}
+    .sub-title {{
         color: #8b949e;
         font-size: 0.95em;
         text-align: center;
         margin-bottom: 25px;
-    }
-    .premium-card {
+    }}
+    .premium-card {{
         background-color: #161a22;
         padding: 18px;
         border-radius: 14px;
         border: 1px solid #21262d;
         box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         margin-bottom: 15px;
-    }
-    .pyramid-card {
+    }}
+    .pyramid-card {{
         background-color: #1f242c;
         padding: 14px;
         border-radius: 10px;
         border-left: 5px solid #f39c12;
         margin-bottom: 12px;
-    }
-    .pyramid-label {
+    }}
+    .pyramid-label {{
         font-size: 0.8em;
         text-transform: uppercase;
         color: #f39c12;
         font-weight: 600;
         margin-bottom: 4px;
-    }
-    .pyramid-content {
+    }}
+    .pyramid-content {{
         color: #f0f6fc;
         font-size: 1.0em;
-    }
-    .match-card {
+    }}
+    .match-card {{
         background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         padding: 22px;
         border-radius: 12px;
@@ -73,17 +83,18 @@ st.markdown("""
         box-shadow: 0 10px 30px rgba(243, 156, 18, 0.2);
         margin-top: 15px;
         text-align: center;
-    }
-    div[data-testid="stTabBar"] {
+    }}
+    div[data-testid="stTabBar"] {{
         justify-content: center !important;
-    }
-    button[data-testid="stHeaderActionButton"] {
+        background-color: transparent !important;
+    }}
+    button[data-testid="stHeaderActionButton"] {{
         display: none !important;
-    }
+    }}
     </style>
 """, unsafe_allow_html=True)
 
-# 2. Official 200 Verified Real-World Perfume Database with Pyramid Architecture
+# 3. Official 200 Verified Real-World Perfume Database with Pyramid Architecture
 def load_verified_perfumes():
     data = [
         # --- VERSACE ---
@@ -117,14 +128,7 @@ def load_verified_perfumes():
         {"name": "JPG Ultra Male", "brand": "Jean Paul Gaultier", "pyramid": "pear lavender mint bergamot lemon | cinnamon caraway clary_sage | black_vanilla amber patchouli cedar"},
         {"name": "JPG Le Male Elixir", "brand": "Jean Paul Gaultier", "pyramid": "lavender mint | vanilla benzoin | honey tonka_bean tobacco"},
         {"name": "JPG Le Beau", "brand": "Jean Paul Gaultier", "pyramid": "bergamot | coconut | tonka_bean woody_notes"},
-        {"name": "JPG Le Beau Le Parfum", "brand": "Jean Paul Gaultier", "pyramid": "pineapple iris cypress ginger | coconut woody_notes | tonka_bean sandalwood ambergris amber"},
-
-        # --- PARFUMS DE MARLY ---
-        {"name": "Parfums de Marly Layton", "brand": "Parfums de Marly", "pyramid": "apple lavender bergamot mandarin_orange | geranium violet jasmine | vanilla cardamom sandalwood pepper"},
-        {"name": "Parfums de Marly Herod", "brand": "Parfums de Marly", "pyramid": "cinnamon pepper | tobacco_leaf incense osmanthus labdanum | vanilla cedar vetiver musk"},
-        {"name": "Parfums de Marly Oajan", "brand": "Parfums de Marly", "pyramid": "cinnamon honey osmanthus | benzoin labdanum artemisia | ambergris vanilla tonka_bean patchouli musk"},
-        {"name": "Parfums de Marly Greenley", "brand": "Parfums de Marly", "pyramid": "green_apple bergamot mandarin_orange | cashmere_wood cedar violet pomarose | oakmoss musk amberwood"},
-        {"name": "Parfums de Marly Sedley", "brand": "Parfums de Marly", "pyramid": "lemon mint bergamot grapefruit mandarin_orange | lavender rosemary geranium olibanum | patchouli cedar vetiver ambroxan sandalwood"}
+        {"name": "JPG Le Beau Le Parfum", "brand": "Jean Paul Gaultier", "pyramid": "pineapple iris cypress ginger | coconut woody_notes | tonka_bean sandalwood ambergris amber"}
     ]
     
     extended_pool = [
@@ -259,29 +263,31 @@ def main():
         formatted_options_map = {note: note.replace("_", " ").title() for note in ALL_UNIQUE_NOTES}
         reverse_map = {v: k for k, v in formatted_options_map.items()}
         
-        # FIXED STRUCTURE: 3 Clean Independent touch-scrolling columns for Mobile PWA
+        # FIXED MULTI-COLUMN DESIGN FOR PYRAMID LAYERS
         col_top, col_mid, col_base = st.columns(3)
         with col_top:
-            top_sel = st.multiselect("🟢 Top Notes:", options=list(formatted_options_map.values()))
+            top_sel = st.multiselect("🟢 Top Notes:", options=list(formatted_options_map.values()), key="custom_top_notes")
         with col_mid:
-            mid_sel = st.multiselect("🟡 Heart Notes:", options=list(formatted_options_map.values()))
+            mid_sel = st.multiselect("🟡 Heart Notes:", options=list(formatted_options_map.values()), key="custom_mid_notes")
         with col_base:
-            base_sel = st.multiselect("🔴 Base Notes:", options=list(formatted_options_map.values()))
+            base_sel = st.multiselect("🔴 Base Notes:", options=list(formatted_options_map.values()), key="custom_base_notes")
             
         if top_sel or mid_sel or base_sel:
             custom_pyramid_str = f"{' '.join([reverse_map[n] for n in top_sel])} | {' '.join([reverse_map[n] for n in mid_sel])} | {' '.join([reverse_map[n] for n in base_sel])}"
             custom_profile = calculate_pyramid_profile(custom_pyramid_str)
             
-            fig_custom = px.pie(names=list(custom_profile.keys()), values=list(custom_profile.values()), hole=0.4, color_discrete_sequence=px.colors.sequential.Sunset_r)
-            fig_custom.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', margin=dict(t=10, b=10, l=10, r=10))
-            st.plotly_chart(fig_custom, use_container_width=True)
-            
-            for label, val in custom_profile.items():
-                st.metric(label=f"{label} Density", value=f"{val}%")
+            col_res1, col_res2 = st.columns([1.2, 1])
+            with col_res1:
+                fig_custom = px.pie(names=list(custom_profile.keys()), values=list(custom_profile.values()), hole=0.4, color_discrete_sequence=px.colors.sequential.Sunset_r)
+                fig_custom.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', margin=dict(t=10, b=10, l=10, r=10))
+                st.plotly_chart(fig_custom, use_container_width=True)
+            with col_res2:
+                for label, val in custom_profile.items():
+                    st.metric(label=f"{label} Density", value=f"{val}%")
                 
-            best_match, match_score = find_closest_perfume_match(custom_profile, df)
-            if best_match:
-                st.markdown(f"<div class='match-card'><div style='color:#f39c12; font-weight:600;'>🏆 AI DATABASE CLONE MATCH</div><div style='font-size:1.8em; color:white; font-weight:600;'>{best_match}</div><div style='color:#a3e635;'>🎯 Similarity Index: {match_score}%</div></div>", unsafe_allow_html=True)
+                best_match, match_score = find_closest_perfume_match(custom_profile, df)
+                if best_match:
+                    st.markdown(f"<div class='match-card'><div style='color:#f39c12; font-weight:600;'>🏆 AI DATABASE CLONE MATCH</div><div style='font-size:1.8em; color:white;'>{best_match}</div><div style='color:#a3e635;'>🎯 Similarity Index: {match_score}%</div></div>", unsafe_allow_html=True)
         else:
             st.info("💡 Select notes in the layers above to start the simulation.")
 
