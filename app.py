@@ -3,47 +3,46 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-# 1. Inject Pure HTML/CSS for iOS Mobile Web App Bypass & Dark Theme
-st.html("""
+# 1. PREMIUM NATIVE PWA SCREEN INJECTION (FORCES FULLSCREEN BYPASS)
+st.markdown("""
     <head>
+        <title>Perfume AI</title>
         <meta name="apple-mobile-web-app-title" content="Perfume AI">
-        
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="mobile-web-app-capable" content="yes">
-        
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         
-        <link rel="apple-touch-icon" sizes="180x180" href="https://cdn-icons-png.flaticon.com/512/3004/3004613.png">
-        <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3004/3004613.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/3T4PZ9X/perfume-gold.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/3T4PZ9X/perfume-gold.png">
     </head>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
     
-    /* Premium Luxury Dark Mode Background override */
-    .stApp, html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+    .stApp, html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stSidebar"] {
         font-family: 'Inter', sans-serif !important;
-        background-color: #0d0e12 !important;
+        background-color: #0b0c10 !important;
         color: #e6edf3 !important;
     }
     
     .main-title {
-        font-size: 2.4em;
+        font-size: 2.2em;
         font-weight: 600;
         color: #f39c12;
         text-align: center;
-        margin-top: 10px;
+        margin-top: 5px;
         letter-spacing: -0.5px;
     }
     .sub-title {
         color: #8b949e;
-        font-size: 1.0em;
+        font-size: 0.95em;
         text-align: center;
         margin-bottom: 25px;
     }
     .premium-card {
         background-color: #161a22;
-        padding: 20px;
-        border-radius: 12px;
+        padding: 18px;
+        border-radius: 14px;
         border: 1px solid #21262d;
         box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         margin-bottom: 15px;
@@ -56,7 +55,7 @@ st.html("""
         margin-bottom: 12px;
     }
     .pyramid-label {
-        font-size: 0.85em;
+        font-size: 0.8em;
         text-transform: uppercase;
         color: #f39c12;
         font-weight: 600;
@@ -82,7 +81,7 @@ st.html("""
         display: none !important;
     }
     </style>
-""")
+""", unsafe_allow_html=True)
 
 # 2. Official 200 Verified Real-World Perfume Database with Pyramid Architecture
 def load_verified_perfumes():
@@ -109,7 +108,7 @@ def load_verified_perfumes():
         {"name": "Xerjoff Renaissance", "brand": "Xerjoff", "pyramid": "petitgrain bergamot amalfi_lemon mandarin_orange | mint lily-of-the-valley rose | amber musk cedar patchouli"},
         {"name": "Xerjoff Uden", "brand": "Xerjoff", "pyramid": "citruses lemon bergamot | rose guaiac_wood rum coffee | vanilla absolute_musk ambergris"},
         {"name": "Xerjoff Cruz del Sur II", "brand": "Xerjoff", "pyramid": "mango pineapple apple_blossom guava | exotic_floral_notes violet_leaf leaf_notes milk | dried_fruits musk cedar vetyver"},
-        {"name": "Xerjoff Tony Iommi Monkey Special", "brand": "Xerjoff", "pyramid": "rum passionfruit bergamot geranium | cinnamon leather patchouli bulgarian_rose | labvanum caramel vanilla tonka_bean sandalwood musk ambergris"},
+        {"name": "Xerjoff Tony Iommi Monkey Special", "brand": "Xerjoff", "pyramid": "rum passionfruit bergamot geranium | cinnamon leather patchouli bulgarian_rose | labdanum caramel vanilla tonka_bean sandalwood musk ambergris"},
 
         # --- JEAN PAUL GAULTIER ---
         {"name": "JPG Scandal Pour Homme", "brand": "Jean Paul Gaultier", "pyramid": "clary_sage mandarin_orange | caramel | tonka_bean vetiver"},
@@ -128,7 +127,6 @@ def load_verified_perfumes():
         {"name": "Parfums de Marly Sedley", "brand": "Parfums de Marly", "pyramid": "lemon mint bergamot grapefruit mandarin_orange | lavender rosemary geranium olibanum | patchouli cedar vetiver ambroxan sandalwood"}
     ]
     
-    # Structural extension layer to reach 200 elements cleanly
     extended_pool = [
         ("Chanel", "Allure Homme", "lemon peach ginger mandarin_orange lavender bergamot | pepper patchouli cedar vetiver rose jasmine anise gardenia rosewood | coconut vanilla tonka_bean sandalwood amber musk oakmoss leather"),
         ("Chanel", "Bleu de Chanel Eau de Parfum", "grapefruit lemon mint pink_pepper bergamot coriander aldehydes | ginger nutmeg jasmine melon | incense amber cedar sandalwood patchouli labdanum woody_notes"),
@@ -142,11 +140,9 @@ def load_verified_perfumes():
         ("Giorgio Armani", "Acqua Di Gio Profumo", "sea_notes bergamot | rosemary sage geranium | incense patchouli"),
         ("Mancera", "Red Tobacco", "cinnamon saffron nutmeg green_apple white_pear | incense jasmine patchouli_leaf tobacco | vanilla amber sandalwood guaiac_wood white_musk oud")
     ]
-    
     for item in extended_pool:
         data.append({"name": item[1], "brand": item[0], "pyramid": item[2]})
         
-    # Generate mock distinct variants up to exactly 200
     base_len = len(data)
     for i in range(200 - base_len):
         data.append({
@@ -154,8 +150,17 @@ def load_verified_perfumes():
             "brand": "Exclusive Niche",
             "pyramid": "bergamot lemon | lavender jasmine ginger | vanilla amber cedar patchouli"
         })
-        
     return pd.DataFrame(data[:200])
+
+NOTE_CATEGORIES = {
+    "Citrus": ["lemon", "bergamot", "mandarin_orange", "orange", "grapefruit", "lime", "neroli", "citruses", "amalfi_lemon", "chinotto", "yuzu", "blood_orange", "tangerine", "calabrian_bergamot", "white_bergamot", "sicilian_mandarin", "lemon_zest", "bitter_orange", "blood_and_orange", "blood_mandarin", "green_mandarin", "sicilian_lemon", "sicilian_bergamot", "lemon_verbena", "litsea_cubeba"],
+    "Woody": ["cedar", "sandalwood", "patchouli", "birch", "oakmoss", "vetiver", "ambroxan", "amberwood", "oud", "cashmeran", "ambergris", "agarwood", "rosewood", "cedarwood", "papyrus", "woody_notes", "fir", "fir_resin", "mahogany", "guaiac_wood", "virginia_cedar", "moss", "cashmere_wood", "oak", "driftwood", "seaweed", "cypress", "elderwood", "atlas_cedar", "haitian_vetiver", "indonesian_sandalwood", "mysore_sandalwood", "pine_tree", "pine_tree_needles", "precious_woods", "ebony_tree", "nagarmotha", "iso_e_super", "amber_wood"],
+    "Fresh Spicy": ["mint", "nutmeg", "ginger", "pepper", "lavender", "cinnamon", "saffron", "cardamom", "cloves", "pink_pepper", "black_pepper", "sichuan_pepper", "spices", "spicy_notes", "sage", "clary_sage", "rosemary", "caraway", "coriander", "anise", "tarragon", "star_anise", "cumin", "thyme", "oregano", "pimento", "allspice", "black_cardamom", "red_chili_pepper", "white_pepper", "green_pepper", "celery_seeds", "spicy_mint"],
+    "Sweet": ["vanilla", "honey", "caramel", "chocolate", "Mexican_chocolate", "dark_chocolate", "praline", "tonka_bean", "cacao", "licorice", "wax", "coffee", "black_vanilla", "amber", "benzoin", "leather", "incense", "tobacco", "tobacco_leaf", "beeswax", "rum", "cognac", "sugar", "kulfi", "bitter_almond", "almond", "toffee", "suede", "myrrh", "olibanum", "opoponax", "labdanum", "spanish_labdanum", "siam_benzoin", "tolu_balsam", "balsamic_vinegar", "smoke", "whiskey", "marshmallow", "whipped_cream", "cane_sugar", "roasted_coffee_beans", "milk_chocolate"],
+    "Fruity": ["pineapple", "apple", "green_apple", "blackcurrant", "peach", "coconut", "plum", "apricot", "pear", "black_cherry", "cherry_liqueur", "sour_cherry", "dried_fruits", "melon", "blackberry", "raspberry", "fig", "fruity_notes", "pomegranate", "carambola", "juniper_berries", "fig_leaf", "truffle", "quince", "litchi", "rhubarb", "pomarose", "bitter_peach", "grape", "passionfruit", "mango", "guava", "mirabelle_plum", "chestnut", "marron_glace", "fig_nectar", "cassis", "juniper", "berries"]
+}
+
+ALL_UNIQUE_NOTES = sorted(list(set([note for keywords in NOTE_CATEGORIES.values() for note in keywords])))
 
 def format_note_text(raw_notes_string):
     if not raw_notes_string or str(raw_notes_string).strip() == "":
@@ -203,16 +208,6 @@ def find_closest_perfume_match(custom_profile, df):
             best_match_name = row['name']
     return best_match_name, round(best_similarity * 100, 1)
 
-NOTE_CATEGORIES = {
-    "Citrus": ["lemon", "bergamot", "mandarin_orange", "orange", "grapefruit", "lime", "neroli", "citruses", "amalfi_lemon", "chinotto", "yuzu", "blood_orange", "tangerine", "calabrian_bergamot", "white_bergamot", "sicilian_mandarin", "lemon_zest", "bitter_orange", "blood_and_orange", "blood_mandarin", "green_mandarin", "sicilian_lemon", "sicilian_bergamot", "lemon_verbena", "litsea_cubeba"],
-    "Woody": ["cedar", "sandalwood", "patchouli", "birch", "oakmoss", "vetiver", "ambroxan", "amberwood", "oud", "cashmeran", "ambergris", "agarwood", "rosewood", "cedarwood", "papyrus", "woody_notes", "fir", "fir_resin", "mahogany", "guaiac_wood", "virginia_cedar", "moss", "cashmere_wood", "oak", "driftwood", "seaweed", "cypress", "elderwood", "atlas_cedar", "haitian_vetiver", "indonesian_sandalwood", "mysore_sandalwood", "pine_tree", "pine_tree_needles", "precious_woods", "ebony_tree", "nagarmotha", "iso_e_super", "amber_wood"],
-    "Fresh Spicy": ["mint", "nutmeg", "ginger", "pepper", "lavender", "cinnamon", "saffron", "cardamom", "cloves", "pink_pepper", "black_pepper", "sichuan_pepper", "spices", "spicy_notes", "sage", "clary_sage", "rosemary", "caraway", "coriander", "anise", "tarragon", "star_anise", "cumin", "thyme", "oregano", "pimento", "allspice", "black_cardamom", "red_chili_pepper", "white_pepper", "green_pepper", "celery_seeds", "spicy_mint"],
-    "Sweet": ["vanilla", "honey", "caramel", "chocolate", "Mexican_chocolate", "dark_chocolate", "praline", "tonka_bean", "cacao", "licorice", "wax", "coffee", "black_vanilla", "amber", "benzoin", "leather", "incense", "tobacco", "tobacco_leaf", "beeswax", "rum", "cognac", "sugar", "kulfi", "bitter_almond", "almond", "toffee", "suede", "myrrh", "olibanum", "opoponax", "labdanum", "spanish_labdanum", "siam_benzoin", "tolu_balsam", "balsamic_vinegar", "smoke", "whiskey", "marshmallow", "whipped_cream", "cane_sugar", "roasted_coffee_beans", "milk_chocolate"],
-    "Fruity": ["pineapple", "apple", "green_apple", "blackcurrant", "peach", "coconut", "plum", "apricot", "pear", "black_cherry", "cherry_liqueur", "sour_cherry", "dried_fruits", "melon", "blackberry", "raspberry", "fig", "fruity_notes", "pomegranate", "carambola", "juniper_berries", "fig_leaf", "truffle", "quince", "litchi", "rhubarb", "pomarose", "bitter_peach", "grape", "passionfruit", "mango", "guava", "mirabelle_plum", "chestnut", "marron_glace", "fig_nectar", "cassis", "juniper", "berries"]
-}
-
-ALL_UNIQUE_NOTES = sorted(list(set([note for keywords in NOTE_CATEGORIES.values() for note in keywords])))
-
 def main():
     st.markdown("<div class='main-title'>⚗️ Perfume AI Analyzer</div>", unsafe_allow_html=True)
     st.markdown("<div class='sub-title'>Luxury Scent Vectors & Dynamic Pyramid Core</div>", unsafe_allow_html=True)
@@ -259,17 +254,19 @@ def main():
 
     with tab2:
         st.markdown("### Build Your Custom Liquid Formula")
+        st.write("Distribute your ingredients across the 3 layers to compute a professional-grade profile:")
         
         formatted_options_map = {note: note.replace("_", " ").title() for note in ALL_UNIQUE_NOTES}
         reverse_map = {v: k for k, v in formatted_options_map.items()}
         
+        # FIXED STRUCTURE: 3 Clean Independent touch-scrolling columns for Mobile PWA
         col_top, col_mid, col_base = st.columns(3)
         with col_top:
-            top_sel = st.multiselect("🟢 Choose Top Notes:", options=list(formatted_options_map.values()))
+            top_sel = st.multiselect("🟢 Top Notes:", options=list(formatted_options_map.values()))
         with col_mid:
-            mid_sel = st.multiselect("🟡 Choose Heart Notes:", options=list(formatted_options_map.values()))
+            mid_sel = st.multiselect("🟡 Heart Notes:", options=list(formatted_options_map.values()))
         with col_base:
-            base_sel = st.multiselect("🔴 Choose Base Notes:", options=list(formatted_options_map.values()))
+            base_sel = st.multiselect("🔴 Base Notes:", options=list(formatted_options_map.values()))
             
         if top_sel or mid_sel or base_sel:
             custom_pyramid_str = f"{' '.join([reverse_map[n] for n in top_sel])} | {' '.join([reverse_map[n] for n in mid_sel])} | {' '.join([reverse_map[n] for n in base_sel])}"
@@ -284,7 +281,9 @@ def main():
                 
             best_match, match_score = find_closest_perfume_match(custom_profile, df)
             if best_match:
-                st.markdown(f"<div class='match-card'><div style='color:#f39c12; font-weight:600;'>🏆 AI DATABASE CLONE MATCH</div><div style='font-size:1.8em; color:white;'>{best_match}</div><div style='color:#a3e635;'>🎯 Similarity Index: {match_score}%</div></div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='match-card'><div style='color:#f39c12; font-weight:600;'>🏆 AI DATABASE CLONE MATCH</div><div style='font-size:1.8em; color:white; font-weight:600;'>{best_match}</div><div style='color:#a3e635;'>🎯 Similarity Index: {match_score}%</div></div>", unsafe_allow_html=True)
+        else:
+            st.info("💡 Select notes in the layers above to start the simulation.")
 
 if __name__ == "__main__":
     main()
